@@ -1,4 +1,4 @@
-"use strict";
+import { create as messengerFactory } from "./SomeEsModule.js";
 
 function assert(condition, message) {
     if (!condition) {
@@ -216,10 +216,11 @@ assert(typeof (() => 42) === "function");
 
 // modules
 {
-    // class module form shares quite a bit with classes
+    // classic module form (module factory) shares quite a bit with classes
     {
         // You have a function that returns an object that gives access to the behaviours
         function Animal(type, name) {
+            // Returning the publicAPI lets you have encapsulation to what you are going to show to client code
             var publicAPI = {
                 print() {
                     console.log(`Type: ${type}, Name: ${name}`);
@@ -245,6 +246,12 @@ assert(typeof (() => 42) === "function");
 
         var ocho = Cat("Ocho");
         ocho.print();
+    }
+
+    // ES modules
+    {
+        var messenger = messengerFactory("Erik");
+        messenger.print();
     }
 }
 
