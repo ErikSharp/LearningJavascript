@@ -28,6 +28,7 @@
                     - The wrapping context is a file
                     - One file - one module
                     - When you import one you get a single instance of it - they are singletons even across multiple imports in different files
+                    - ESM must be served via HTTP to work
     -   Both have the goal of grouping together both data and behaviours
     -   Some programs may use neither
     -   Some programs may use both

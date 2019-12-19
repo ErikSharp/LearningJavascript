@@ -40,27 +40,32 @@ export function chapter2() {
 
     // variable assigning
     {
-        var assigned = "Erik";
+        var assignedWithVar = "Erik";
+        let assignedWithLet = "Lynsey";
         var notAssigned;
         const mustAssignAndCantChange = true;
         const thisIsConfusingAsCanStillChangeContents = {
             changeMe: true
         };
 
+        //dont make objects constants
         thisIsConfusingAsCanStillChangeContents.changeMe = false;
 
+        //or arrays
         const thisIsConfusingAsCanStillChangeContents2 = [1, 2];
         thisIsConfusingAsCanStillChangeContents2[1] = 3;
 
-        if (assigned) {
+        if (assignedWithVar) {
             assert(notAssigned === undefined);
-            var youCanSeeMe = true;
+            var youCanSeeVarOutsideItsScope = true;
             let youCantReferenceMeOutOfHere = true;
             assert(youCantReferenceMeOutOfHere);
-            assert(assigned === "Erik");
+            assert(assignedWithVar === "Erik");
+            assert(assignedWithLet === "Lynsey");
         }
 
-        assert(youCanSeeMe);
+        //assert(youCantReferenceMeOutOfHere); //wont compile
+        assert(youCanSeeVarOutsideItsScope);
 
         // function assigning
         {
@@ -122,23 +127,8 @@ export function chapter2() {
             // Humorously, you could think of Object.is(..) as the "quadruple-equals" ====, the really-really-strict comparison!
         }
 
-        // object comparison
+        // comparison with ==
         {
-            // === only does identity equality and not structural equality
-            // object values are held by reference, assigned and passed by reference
-            assert([1, 2, 3] !== [1, 2, 3]);
-            assert({ a: 42 } !== { a: 42 });
-            assert((x => x * 2) !== (x => x * 2));
-
-            let x = [1, 2, 3];
-            let y = x;
-            assert(x === y);
-            let z = [1, 2, 3];
-            assert(x !== z);
-
-            //JS does not provide a mechanism for structural equality comparison of object values, only reference identity comparison.
-            //To do structural equality comparison, you'll need to implement the checks yourself.
-
             // With the == comparison operator, if both values are of the same type then it does the same as ===
             // == will allow a type conversion before the comparison
             // You can think of it as coercive equality
@@ -155,6 +145,29 @@ export function chapter2() {
             // Consider the < operator
             assert("30" < 50); // the "30" coerced into a number
             assert("10" < "9"); // be careful - when they are both strings it does an ascii alpha comparison
+        }
+
+        // object comparison
+        {
+            // === only does identity equality and not structural equality
+            // object values are held by reference, assigned and passed by reference
+            assert([1, 2, 3] !== [1, 2, 3]);
+            assert({ a: 42 } !== { a: 42 });
+            assert((x => x * 2) !== (x => x * 2));
+            assert([1, 2, 3] != [1, 2, 3]);
+            assert({ a: 42 } != { a: 42 });
+            assert((x => x * 2) != (x => x * 2));
+
+            let x = [1, 2, 3];
+            let y = x;
+            assert(x === y);
+            assert(x == y);
+            let z = [1, 2, 3];
+            assert(x !== z);
+            assert(x != z);
+
+            //JS does not provide a mechanism for structural equality comparison of object values, only reference identity comparison.
+            //To do structural equality comparison, you'll need to implement the checks yourself.
         }
     }
 
@@ -203,10 +216,10 @@ export function chapter2() {
             }
         }
 
-        let myBook = new Notebook();
-        myBook.addPage("page1 blah blah");
-        myBook.addPage("page2 blah blah");
-        myBook.addPage("page3 blah blah");
+        let myBook = new AcademicNotebook("Science", "Lasers");
+        myBook.addPage("page1 Lasers are cool");
+        myBook.addPage("page2 Lasers are great in protests");
+        myBook.addPage("page3 Lasers belong on sharks");
         myBook.print();
     }
 
@@ -246,6 +259,7 @@ export function chapter2() {
 
         // ES modules
         {
+            //the import statemnt is at the top of the page
             var messenger = messengerFactory("Erik");
             messenger.print();
         }
