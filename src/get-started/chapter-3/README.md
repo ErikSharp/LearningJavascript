@@ -11,9 +11,14 @@
         -   Only functions gets closures, objects do not
 -   this
     -   Can be described as an execution context
+    -   a characteristic of function execution
     -   Scope is static and is the list of variables available at a certain location
         -   A function that closes over a scope can never reference a different scope or set of variables
     -   An execution context is dynamic and changes based on how the function is called
         -   It is determined everytime that the function is called
         -   It is a tangible object
         -   It has the ability to more flexibly re-use a single function with data from different objects
+-   prototypes
+    -   a characteristic of an object
+    -   A series of objects linked together via prototypes is called the "prototype chain"
+    -   Created with `Object.create(foo)

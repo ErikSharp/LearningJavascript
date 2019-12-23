@@ -89,7 +89,7 @@ export function chapter3() {
         }
     }
 
-    // this
+    // this - a characteristic of function execution
     {
         function classroom(teacher) {
             return function study() {
@@ -113,7 +113,52 @@ export function chapter3() {
             topic: "Math"
         };
 
-        //another why to call the function passing in the execution context
+        //another way to call the function passing in the execution context
         assignment.call(otherHomework);
+    }
+
+    // prototypes - a characteristic of an object, and specifically resolution of a property access
+    {
+        var homework = {
+            topic: "JS"
+        };
+
+        // default prototype linkage to Object.prototype
+        homework.toString();
+        assert(homework.toString !== undefined);
+
+        // creates a new object that is linked to homework
+        var otherHomework = Object.create(homework);
+        assert(otherHomework.topic === "JS"); // reads prototype property topic
+        otherHomework.topic = "Math"; // create a property topic that shadows the prototype
+        assert(otherHomework.topic === "Math");
+        assert(homework.topic === "JS"); // proves that Object.create makes a deep-clone
+
+        // no prototypes
+        {
+            let foo = Object.create(null);
+            foo.bar = 42;
+            assert(foo.bar !== undefined);
+            assert(foo.toString === undefined);
+        }
+
+        // this revisited
+        {
+            // defining the behavior at the end of the chain
+            let homework = {
+                study() {
+                    return `Please study ${this.topic}`;
+                }
+            };
+
+            // create objects that link to the above and then set their own topic
+            let jsHomework = Object.create(homework);
+            jsHomework.topic = "JS";
+            assert(jsHomework.study() === "Please study JS");
+
+            let mathHomework = Object.create(homework);
+            mathHomework.topic = "Math";
+            assert(mathHomework.study() === "Please study Math");
+        }
     }
 }
