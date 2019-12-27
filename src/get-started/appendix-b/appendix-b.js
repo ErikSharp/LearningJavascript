@@ -59,4 +59,63 @@ export function appendixB() {
         assert(!scheduleMeeting(27, 15));
         assert(!scheduleMeeting());
     }
+
+    // closures
+    {
+        function range(start, end) {
+            function createRangeArray(start, end) {
+                try {
+                    if (start > end) {
+                        throw "start must be <= end";
+                    }
+
+                    let result = [];
+                    for (let i = start; i <= end; i++) {
+                        result.push(i);
+                    }
+
+                    return result;
+                } catch (error) {
+                    return [];
+                }
+            }
+
+            try {
+                if (end > -1) {
+                    return createRangeArray(start, end);
+                } else {
+                    return function calcRange(end) {
+                        return createRangeArray(start, end);
+                    }
+                }
+            } catch (error) {
+                return [];
+            }
+
+        }
+
+        let result = range(3, 3);    // [3]
+        assert(result.length === 1 && result[0] === 3);
+
+        result = range(3, 8);    // [3,4,5,6,7,8]
+        assert(result.length === 6 && result[0] === 3 && result[5] === 8);
+
+        result = range(3, 0);    // []
+        assert(result.length === 0);
+
+        var start3 = range(3);
+        var start4 = range(4);
+
+        result = start3(3);     // [3]
+        assert(result.length === 1 && result[0] === 3);
+
+        result = start3(8);     // [3,4,5,6,7,8]
+        assert(result.length === 6 && result[0] === 3 && result[5] === 8);
+
+        result = start3(0);     // []
+        assert(result.length === 0);
+
+        result = start4(6);     // [4,5,6]
+        assert(result.length === 3 && result[0] === 4 && result[2] === 6);
+    }
 }
