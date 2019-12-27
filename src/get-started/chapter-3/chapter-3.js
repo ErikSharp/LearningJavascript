@@ -32,9 +32,9 @@ export function chapter3() {
             let onlyTheValues = agesByName.values();
             let onlyTheKeys = agesByName.keys();
             let entries = agesByName.entries();
-            console.log(entries);
+            console.log(entries); //MapIterator {"Erik" => 43, "Lynsey" => 38}
             let entriesToArray = [...entries];
-            console.log(entriesToArray);
+            console.log(entriesToArray); //(2) [Array(2), Array(2)]
         }
 
         // Arrays
@@ -94,27 +94,29 @@ export function chapter3() {
         function classroom(teacher) {
             return function study() {
                 //this function is context aware as it uses this
-                console.log(`${teacher} wants you to study ${this.topic}`);
+                return `${teacher} wants you to study ${this.topic}`;
             };
         }
 
         let assignment = classroom("Kyle");
 
-        //assignment(); //won't work as there is no execution context
+        //assignment(); //won't work as there is no execution context for 'this' to work
 
         var homework = {
             topic: "JS",
             assignment: assignment
         };
 
-        homework.assignment(); //the homework object is the execution context
+        let result = homework.assignment(); //the homework object is the execution context
+        assert(result === "Kyle wants you to study JS");
 
         let otherHomework = {
             topic: "Math"
         };
 
         //another way to call the function passing in the execution context
-        assignment.call(otherHomework);
+        result = assignment.call(otherHomework);
+        assert(result === "Kyle wants you to study Math");
     }
 
     // prototypes - a characteristic of an object, and specifically resolution of a property access
