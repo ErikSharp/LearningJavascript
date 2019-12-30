@@ -1,7 +1,8 @@
 import { assert } from "../../utilities/asserts.js";
 
-export function appendixB() {
+// https://github.com/getify/You-Dont-Know-JS/blob/2nd-ed/get-started/apB.md
 
+export function appendixB() {
     //comparisons
     {
         const dayStart = "07:30";
@@ -17,12 +18,10 @@ export function appendixB() {
                         if (colonLocation > 0) {
                             var hour = +time.substr(0, colonLocation);
                             var minute = +time.substr(colonLocation + 1);
-                        }
-                        else {
+                        } else {
                             throw "wrong colon location";
                         }
-                    }
-                    else {
+                    } else {
                         throw "wrong length";
                     }
 
@@ -33,14 +32,17 @@ export function appendixB() {
                 }
 
                 let timeComponents = getTimeComponents(time);
-                return (timeComponents.hour * 60) + timeComponents.minute;
+                return timeComponents.hour * 60 + timeComponents.minute;
             }
 
             let failed = false;
 
             try {
-                failed |= getTotalMinutes(startTime) < getTotalMinutes(dayStart);
-                failed |= durationMinutes + getTotalMinutes(startTime) > getTotalMinutes(dayEnd);
+                failed |=
+                    getTotalMinutes(startTime) < getTotalMinutes(dayStart);
+                failed |=
+                    durationMinutes + getTotalMinutes(startTime) >
+                    getTotalMinutes(dayEnd);
                 return !failed;
             } catch (error) {
                 return false;
@@ -58,5 +60,75 @@ export function appendixB() {
         assert(!scheduleMeeting("00:00", 15));
         assert(!scheduleMeeting(27, 15));
         assert(!scheduleMeeting());
+    }
+
+    // prototypes
+    {
+        function randMax(max) {
+            return Math.trunc(1e9 * Math.random()) % max;
+        }
+
+        var reel = {
+            symbols: ["♠", "♥", "♦", "♣", "☺", "★", "☾", "☀"],
+            spin() {
+                if (this.position == null) {
+                    this.position = randMax(this.symbols.length - 1);
+                }
+                this.position =
+                    (this.position + 100 + randMax(100)) % this.symbols.length;
+            },
+            display(positionModifier = 0) {
+                if (this.position == null) {
+                    this.position = randMax(this.symbols.length - 1);
+                }
+
+                let index =
+                    (this.position + positionModifier) % this.symbols.length;
+
+                if (index < 0) index = this.symbols.length + index;
+
+                return this.symbols[index];
+            }
+        };
+
+        var slotMachine = {
+            reels: [
+                Object.create(reel),
+                Object.create(reel),
+                Object.create(reel)
+            ],
+            spin() {
+                this.reels.forEach(function spinReel(reel) {
+                    reel.spin();
+                });
+            },
+            display() {
+                let prevLine = this.reels
+                    .map(reel => reel.display(-1))
+                    .join(" | ");
+                console.log(prevLine);
+
+                let line = this.reels.map(reel => reel.display()).join(" | ");
+                console.log(line);
+
+                let nextLine = this.reels
+                    .map(reel => reel.display(1))
+                    .join(" | ");
+                console.log(nextLine);
+                console.log("");
+            }
+        };
+
+        slotMachine.spin();
+        slotMachine.display();
+        // ☾ | ☀ | ★
+        // ☀ | ♠ | ☾
+        // ♠ | ♥ | ☀
+
+        slotMachine.spin();
+        slotMachine.display();
+        // ♦ | ♠ | ♣
+        // ♣ | ♥ | ☺
+        // ☺ | ♦ | ★
     }
 }
