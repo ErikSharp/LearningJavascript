@@ -3,7 +3,7 @@ import { chapter3 } from "./get-started/chapter-3/chapter-3.js";
 import { appendixA } from "./get-started/appendix-a/appendix-a.js";
 import { appendixB } from "./get-started/appendix-b/appendix-b.js";
 
-import { stringApi } from "./w3schools/strings.js.js";
+import { stringApi } from "./w3schools/strings.js";
 
 function execChapter(chapter, name) {
     console.log(`START - ${name}`);
