@@ -10,9 +10,15 @@ export function stringApi() {
     assert(alphabet.indexOf("cde") === 2);
     assert(name.indexOf("w") === -1);
     assert(name.search("har*") === 6); // same as indexOf but no start parameter and can use reg-ex
+    let matchArray = "The rain in SPAIN stays mainly in the plain".match(
+        /ain/g
+    );
+    assert(matchArray.length === 3 && matchArray[0] === "ain");
     assert(name.lastIndexOf("r") === 8);
     assert(name.indexOf("r", 3) === 8); // start at the third index
     assert(alphabet.lastIndexOf("d", 10) === 3); // specifying the start makes it search backwards!
+    assert(name.startsWith("erik"));
+    assert(name.endsWith("sharp"));
 
     //slice
     assert(alphabet.slice(1, 4) === "bcd"); //start and end (not included)
@@ -52,6 +58,7 @@ export function stringApi() {
 
     //character codes
     assert(name.charCodeAt(0) === 101);
+    assert(String.fromCharCode(101) === "e");
 
     //character index
     assert(name[0] === "e"); //as strings are not arrays it's better to use charAt
@@ -67,4 +74,8 @@ export function stringApi() {
     assert(eachCharacter[0] === "a");
     assert(eachCharacter[1] === ",");
     assert(eachCharacter[2] === "b");
+
+    //repeat
+    assert(name.repeat(2) === "erik sharperik sharp");
+    assert("- ".repeat(5) === "- - - - - ");
 }
