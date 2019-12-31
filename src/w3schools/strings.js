@@ -2,7 +2,7 @@ import { assert } from "../utilities/asserts.js";
 
 //https://www.w3schools.com/js/js_string_methods.asp
 
-export function stringApi() {
+export function strings() {
     let alphabet = "abcdefghijklmnopqrstuvwxyz";
     let name = "erik sharp";
 
