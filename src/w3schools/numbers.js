@@ -121,4 +121,25 @@ export function numbers() {
         assert(Number.MAX_VALUE.toString() === "1.7976931348623157e+308");
         assert(Number.MIN_VALUE.toString() === "5e-324");
     }
+
+    //random numbers
+    {
+        function getRndInteger(min, max, includeMax = false) {
+            let inclusiveModifier = includeMax ? 1 : 0;
+            return (
+                Math.floor(Math.random() * (max - min + inclusiveModifier)) +
+                min
+            );
+        }
+
+        assert(getRndInteger(3, 4) === 3); //since excludes 4 always 3
+
+        console.log(
+            `getRndInteger(3, 7, true) - 3, 4, 5, 6, 7 : ${getRndInteger(
+                3,
+                7,
+                true
+            )}`
+        );
+    }
 }
