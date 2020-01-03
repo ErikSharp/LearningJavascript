@@ -9,9 +9,9 @@ import { dates } from "./w3schools/dates.js";
 import { strings } from "./w3schools/strings.js";
 
 function execChapter(chapter, name) {
-    console.log(`START - ${name}`);
+    console.group(name);
     chapter();
-    console.log(`END - ${name}`);
+    console.groupEnd();
 }
 
 execChapter(chapter2, Object.keys({ chapter2 })[0]);
