@@ -14,14 +14,19 @@ function execChapter(chapter, name) {
     console.groupEnd();
 }
 
+console.group("Getting Started");
 execChapter(chapter2, Object.keys({ chapter2 })[0]);
 execChapter(chapter3, Object.keys({ chapter3 })[0]);
 execChapter(appendixA, Object.keys({ appendixA })[0]);
 execChapter(appendixB, Object.keys({ appendixB })[0]);
+console.groupEnd();
+
+console.group("W3 Schools");
 execChapter(strings, Object.keys({ strings })[0]);
 execChapter(numbers, Object.keys({ numbers })[0]);
 execChapter(arrays, Object.keys({ arrays })[0]);
 execChapter(dates, Object.keys({ dates })[0]);
+console.groupEnd();
 
 let headerMessage = document.getElementById("message");
 headerMessage.innerText = "All of the assertions have run";
