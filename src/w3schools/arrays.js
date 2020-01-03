@@ -110,28 +110,158 @@ export function arrays() {
             assert(values.toString() === "1,2,4,7,9");
         }
 
-        let videoGames = ["Spyro", "Starcraft", "Apex Legends"];
-        let boardGames = ["Cluedo", "Pictionary"];
-        let movies = ["Harry Potter", "Chicken Run"];
+        //concat
+        {
+            let videoGames = ["Spyro", "Starcraft", "Apex Legends"];
+            let boardGames = ["Cluedo", "Pictionary"];
+            let movies = ["Harry Potter", "Chicken Run"];
 
-        let games = videoGames.concat(boardGames); //returns the new array and leaves the others intact
-        assert(games.length === 5);
-        assert(games[3] === "Cluedo");
+            let games = videoGames.concat(boardGames); //returns the new array and leaves the others intact
+            assert(games.length === 5);
+            assert(games[3] === "Cluedo");
 
-        let entertainment = videoGames.concat(boardGames, movies);
-        assert(entertainment.length === 7);
-        assert(entertainment[5] === "Harry Potter");
+            let entertainment = videoGames.concat(boardGames, movies);
+            assert(entertainment.length === 7);
+            assert(entertainment[5] === "Harry Potter");
 
-        let moreBoardGames = boardGames.concat("Monopoly", "Battleship"); //same as push, but can do more than just one at a time
-        assert(moreBoardGames.length === 4);
-        assert(moreBoardGames[2] === "Monopoly");
+            let moreBoardGames = boardGames.concat("Monopoly", "Battleship"); //same as push, but can do more than just one at a time
+            assert(moreBoardGames.length === 4);
+            assert(moreBoardGames[2] === "Monopoly");
+        }
 
-        assert(values.toString() === "1,2,4,7,9"); //starting array
-        let newArray = values.slice(2); //creates a new array starting from the element at index 2 to the end
-        assert(newArray.length === 3);
-        assert(newArray.toString() === "4,7,9");
+        //slice
+        {
+            assert(values.toString() === "1,2,4,7,9"); //starting array
+            let newArray = values.slice(2); //creates a new array starting from the element at index 2 to the end
+            assert(newArray.length === 3);
+            assert(newArray.toString() === "4,7,9");
 
-        newArray = values.slice(1, 3); //creates a new array starting from the element at index 1 to index 3, but not including index 3
-        assert(newArray.toString() === "2,4");
+            newArray = values.slice(1, 3); //creates a new array starting from the element at index 1 to index 3, but not including index 3
+            assert(newArray.toString() === "2,4");
+        }
+    }
+
+    //sort
+    {
+        let letters = ["c", "a", "d", "b"];
+        letters.sort(); //changes the array
+        assert(letters[0] === "a");
+        assert(letters[3] === "d");
+
+        letters.reverse();
+        assert(letters[0] === "d");
+        assert(letters[3] === "a");
+
+        let numbers = [40, 20, 3, 100];
+        numbers.sort(); //be careful! Numbers are sorted as strings
+        assert(numbers[0] !== 3);
+        assert(numbers[3] !== 100);
+        assert(numbers[0] === 100);
+        assert(numbers[3] === 40);
+
+        //supplying a compare function to compare numbers
+        numbers.sort((a, b) => a - b);
+        assert(numbers[0] === 3);
+        assert(numbers[3] === 100);
+
+        //now descending
+        numbers.sort((a, b) => b - a);
+        assert(numbers[0] === 100);
+        assert(numbers[3] === 3);
+
+        //now random
+        numbers.sort(() => 0.5 - Math.random());
+        console.log(`Random array sort: ${numbers.toString()}`);
+
+        //Max - strange syntax
+        assert(Math.max.apply(null, numbers) === 100);
+        //the equivalent with literals
+        assert(Math.max(3, 56, 7, 43, 3) === 56);
+        //Min
+        assert(Math.min.apply(null, numbers) === 3);
+
+        //homebrew
+        function myArrayMax(arr) {
+            var len = arr.length;
+            var max = -Infinity;
+            while (len--) {
+                if (arr[len] > max) {
+                    max = arr[len];
+                }
+            }
+            return max;
+        }
+
+        assert(myArrayMax(numbers) === 100);
+    }
+
+    //iteration
+    {
+        let numbers = [1, 2, 3, 4];
+        let total = 0;
+        numbers.forEach(i => (total += i));
+        assert(total === 10);
+
+        //can also get the index
+        numbers.forEach((value, index) =>
+            console.log(`Index: ${index} is ${value}`)
+        );
+
+        let doubled = numbers.map(i => i * 2);
+        assert(doubled[0] === 2);
+        assert(doubled[3] === 8);
+        assert(numbers[0] === 1); //doesn't change the original
+
+        let displayable = numbers.map((value, index) => `${index}:${value}`);
+        assert(displayable[2] === "2:3");
+
+        //map with sparse array
+        let someNumbers = [1, 2, , 4];
+        let squared = someNumbers.map(i => i * i);
+        assert(squared[2] === undefined);
+        assert(squared[3] === 16);
+
+        //filter
+        let even = numbers.filter(i => i % 2 === 0);
+        assert(even.length === 2);
+        assert(even[1] === 4);
+
+        //reduce
+        assert(numbers.reduce(productReduction) === 24);
+
+        //gets compiled first pass, so it can be listed after use as JS is NOT an interpretted language
+        function productReduction(total, value, index, array) {
+            //as we aren't using the index and array they could be removed
+            return total * value;
+        }
+
+        //set an initial total
+        assert(numbers.reduce(productReduction, 2) === 48);
+
+        //go from right to left
+        assert(numbers.reduceRight(productReduction) === 24);
+
+        //every
+        let allArePositive = numbers.every(i => i > 0);
+        assert(allArePositive);
+
+        let someAreGreaterThanThree = numbers.some(i => i > 3);
+        assert(someAreGreaterThanThree);
+
+        //indexOf
+        assert(numbers.indexOf(3) === 2); //index found at
+        assert(numbers.indexOf(-2) === -1); //not found
+        assert(numbers.indexOf(1, 2) === -1); //not found since starting at index 2
+
+        let nameInArray = "Erik Sharp".split("");
+        assert(nameInArray.lastIndexOf("r") === 8);
+
+        assert(nameInArray.find(findFunction) === "r"); //returns the first occurence that the function returns true
+
+        function findFunction(value, index, array) {
+            return value.charCodeAt(0) === 114;
+        }
+
+        assert(nameInArray.findIndex(findFunction) === 1);
     }
 }
