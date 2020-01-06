@@ -168,6 +168,13 @@ export function chapter2() {
 
             //JS does not provide a mechanism for structural equality comparison of object values, only reference identity comparison.
             //To do structural equality comparison, you'll need to implement the checks yourself.
+            function myObjectsAreEqual(objA, objB) {
+                return objA.a === objB.a;
+            }
+
+            let objA = { a: 42 };
+            let objB = { a: 42, name: "foo" };
+            assert(myObjectsAreEqual(objA, objB));
         }
     }
 
