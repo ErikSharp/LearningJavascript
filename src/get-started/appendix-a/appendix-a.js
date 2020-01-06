@@ -24,43 +24,47 @@ export function appendixA() {
 
     // functions
     {
-        let someFunc = function foo() { };
+        let someFunc = function foo() {};
 
         assert(someFunc.name !== "someFunc");
         assert(someFunc.name === "foo");
 
-        someFunc = function () { };
+        someFunc = function() {};
         assert(someFunc.name === "someFunc");
 
         function getFuncName(func) {
             return func.name;
         }
         assert(getFuncName.name === "getFuncName");
-        assert(getFuncName(() => { }) === "");
+        assert(getFuncName(someFunc) === "someFunc");
+        assert(getFuncName(() => {}) === ""); //This is one reason that anonymous functions
+        // can be a pain in the call stack as they don't have names
 
-        var f;
-        f = () => 42;
-        assert(f() === 42);
+        //function syntax
+        {
+            var f;
+            f = () => 42;
+            assert(f() === 42);
 
-        f = x => x * 2;
-        assert(f(2) === 4);
+            f = x => x * 2; // parenthesis are optional with one parameter
+            assert(f(2) === 4);
 
-        f = (x) => x * 2; // parenthesis are optional with one parameter
-        assert(f(2) === 4);
+            f = (x, y) => x * y;
+            assert(f(2, 3) === 6);
 
-        f = (x, y) => x * y;
-        assert(f(2, 3) === 6);
+            f = x => ({ x: x * 2 });
+            assert(f(2).x === 4);
 
-        f = x => ({ x: x * 2 });
-        assert(f(2).x === 4);
-
-        f = x => { return x * 2; };
-        assert(f(2) === 4);
+            f = x => {
+                return x * 2;
+            };
+            assert(f(2) === 4);
+        }
 
         class SomethingKindaGreat {
             // class methods
-            coolMethod() { }   // no commas!
-            boringMethod() { }
+            coolMethod() {} // no commas!
+            boringMethod() {}
         }
 
         let instance = new SomethingKindaGreat();
@@ -68,11 +72,11 @@ export function appendixA() {
 
         let EntirelyDifferent = {
             // object methods
-            coolMethod() { },   // commas!
-            boringMethod() { },
+            coolMethod() {}, // commas!
+            boringMethod() {},
 
             // (anonymous) function expression property
-            oldSchool: function () { }
+            oldSchool: function() {}
         };
 
         assert(EntirelyDifferent.oldSchool.name === "oldSchool");
@@ -80,14 +84,14 @@ export function appendixA() {
 
     // prototypal class pattern
     {
-        function Classroom() { }
+        function Classroom() {}
 
         Classroom.prototype.welcome = () => "Welcome to class";
 
         let classroom = new Classroom();
         assert(classroom.welcome() === "Welcome to class");
 
-        //All functions by default reference an empty object at a property named prototype. 
+        //All functions by default reference an empty object and a property named prototype.
         //Despite the confusing naming, this is not the function's prototype
         //--where the function is prototype linked to
         //--but rather the prototype object to link to when other objects are created by calling the function with new.
