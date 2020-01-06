@@ -266,7 +266,7 @@ export function chapter2() {
 
         // ES modules
         {
-            //the import statemnt is at the top of the page
+            //the import statement is at the top of the page
             var messenger = messengerFactory("Erik");
             messenger.print();
         }
