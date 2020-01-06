@@ -1,6 +1,6 @@
 import { assert } from "../utilities/asserts.js";
 
-//https://www.w3schools.com/js/js_string_methods.asp
+// https://www.w3schools.com/js/js_string_methods.asp
 
 export function strings() {
     let alphabet = "abcdefghijklmnopqrstuvwxyz";

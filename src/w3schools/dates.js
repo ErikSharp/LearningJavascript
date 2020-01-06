@@ -1,6 +1,6 @@
 import { assert } from "../utilities/asserts.js";
 
-//www.w3schools.com/js/js_dates.asp
+// http://www.w3schools.com/js/js_dates.asp
 
 export function dates() {
     let rightNow = new Date();

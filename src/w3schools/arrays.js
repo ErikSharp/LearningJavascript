@@ -1,6 +1,6 @@
 import { assert } from "../utilities/asserts.js";
 
-//https://www.w3schools.com/js/js_arrays.asp
+// https://www.w3schools.com/js/js_arrays.asp
 
 export function arrays() {
     let emptyArray = [];

@@ -1,6 +1,6 @@
 import { assert } from "../utilities/asserts.js";
 
-//w3schools.com/js/js_string_methods.asp
+// http://w3schools.com/js/js_string_methods.asp
 
 export function numbers() {
     let pi = 3.14159; // a number with decimals
