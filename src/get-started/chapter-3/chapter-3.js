@@ -127,7 +127,7 @@ export function chapter3() {
 
         // default prototype linkage to Object.prototype
         homework.toString();
-        assert(homework.toString !== undefined);
+        assert(homework.toString !== undefined); //checking that the function exists
 
         // creates a new object that is linked to homework
         var otherHomework = Object.create(homework);
