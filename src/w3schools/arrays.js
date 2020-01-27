@@ -13,6 +13,7 @@ export function arrays() {
     assert(cars.toString() === "Nissan,Renault,Volkswagen"); //converts to csv
     assert(cars.join() === "Nissan,Renault,Volkswagen");
     assert(cars.join("|") === "Nissan|Renault|Volkswagen"); //with join you can specify the separator
+    assert(cars.reverse()[0] === "Volkswagen");
 
     assert(typeof cars === "object");
     assert(Array.isArray(cars)); //how to detect arrays
