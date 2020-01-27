@@ -16,6 +16,7 @@ export function create(name) {
 var counter = 0;
 
 // No matter how many times this gets imported it's still a singleton
-export function displaySingletonCounter() {
-    console.log(counter++);
+export function getCallsCount() {
+    counter++;
+    return counter;
 }

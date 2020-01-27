@@ -1,4 +1,4 @@
-import { create as messengerFactory } from "./some-es-module.js";
+import { create as messengerFactory, getCallsCount } from "./some-es-module.js";
 import { assert } from "../../utilities/asserts.js";
 
 export function chapter2() {
@@ -269,6 +269,13 @@ export function chapter2() {
             //the import statement is at the top of the page
             var messenger = messengerFactory("Erik");
             messenger.print();
+
+            assert(getCallsCount() === 1);
+            assert(getCallsCount() === 2);
+            assert(getCallsCount() === 3);
+            assert(getCallsCount() === 4);
+
+            //look in chapter3.js and will try this again and the value should be 5
         }
     }
 }

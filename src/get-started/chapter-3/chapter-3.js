@@ -1,6 +1,10 @@
 import { assert } from "../../utilities/asserts.js";
+import { getCallsCount } from "../chapter-2/some-es-module.js";
 
 export function chapter3() {
+    //assertion from chapter 2 that proves that imported modules are singletons
+    assert(getCallsCount() === 5);
+
     // iteration
     {
         let numbers = [1, 2, 3, 4];
