@@ -6,7 +6,7 @@ function createMessage(name) {
 export function create(name) {
     var publicAPI = {
         print() {
-            console.log(createMessage());
+            console.log(createMessage(name));
         }
     };
 
